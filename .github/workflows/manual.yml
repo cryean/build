@@ -1,0 +1,9 @@
+name: Manual Build
+on: [workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build
+        run: ./compile.sh BOARD=orangepi4pro BRANCH=current RELEASE=bookworm KERNEL_CONFIGURE=no
