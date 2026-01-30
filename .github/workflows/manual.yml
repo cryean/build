@@ -6,4 +6,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build
-        run: ./compile.sh BOARD=orangepi4pro BRANCH=current RELEASE=bookworm KERNEL_CONFIGURE=no
+        # Zmenili sme BOARD na orangepi4
+        run: ./compile.sh BOARD=orangepi4 BRANCH=current RELEASE=bookworm KERNEL_CONFIGURE=no
