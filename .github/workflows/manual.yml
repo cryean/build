@@ -14,11 +14,14 @@ jobs:
       - name: Build Armbian Image
         env:
           COLUMNS: 160
+          TERM: xterm
         run: |
           sudo ./compile.sh \
+            build \
             BOARD=orangepi4 \
             BRANCH=current \
             RELEASE=bookworm \
+            BUILD_MINIMAL=no \
             BUILD_DESKTOP=no \
             KERNEL_CONFIGURE=no \
             COMPRESS_OUTPUTIMAGE=img \
