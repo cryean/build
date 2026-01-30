@@ -12,17 +12,18 @@ jobs:
           fetch-depth: 0
 
       - name: Build Armbian Image
-        # Nastavujeme COLUMNS, aby Python nespadol na detekcii šírky terminálu
         env:
           COLUMNS: 160
         run: |
           sudo ./compile.sh \
             BOARD=orangepi4 \
-            BRANCH=legacy \
+            BRANCH=current \
             RELEASE=bookworm \
             BUILD_MINIMAL=no \
             BUILD_DESKTOP=no \
             KERNEL_ONLY=no \
             KERNEL_CONFIGURE=no \
             COMPRESS_OUTPUTIMAGE=sha,gpg,img \
+            IGNORE_UPDATES=yes \
+            SKIP_EXTERNAL_PATCHES=yes \
             EXPERT=yes
