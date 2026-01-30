@@ -12,19 +12,17 @@ jobs:
           fetch-depth: 0
 
       - name: Build Armbian Image
+        # Nastavujeme COLUMNS, aby Python nespadol na detekcii šírky terminálu
+        env:
+          COLUMNS: 160
         run: |
           sudo ./compile.sh \
             BOARD=orangepi4 \
-            BRANCH=current \
+            BRANCH=legacy \
             RELEASE=bookworm \
             BUILD_MINIMAL=no \
             BUILD_DESKTOP=no \
+            KERNEL_ONLY=no \
             KERNEL_CONFIGURE=no \
             COMPRESS_OUTPUTIMAGE=sha,gpg,img \
             EXPERT=yes
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: Armbian-OrangePi4Pro-Image
-          path: output/images/*.img*
