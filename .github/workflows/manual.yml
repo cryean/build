@@ -1,10 +1,31 @@
 name: Manual Build
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - name: Build
-        # Zmenili sme BOARD na orangepi4
-        run: ./compile.sh BOARD=orangepi4 BRANCH=current RELEASE=bookworm KERNEL_CONFIGURE=no
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Build Armbian Image
+        run: |
+          sudo ./compile.sh \
+            BOARD=orangepi4 \
+            BRANCH=current \
+            RELEASE=bookworm \
+            BUILD_MINIMAL=no \
+            BUILD_DESKTOP=no \
+            KERNEL_ONLY=no \
+            KERNEL_CONFIGURE=no \
+            COMPRESS_OUTPUTIMAGE=sha,gpg,img \
+            EXPERT=yes
+
+      - name: Upload Artifacts
+        uses: actions/actions/upload-artifact@v4
+        with:
+          name: Armbian-OrangePi4Pro-Image
+          path: output/images/*.img.xz
