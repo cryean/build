@@ -9,7 +9,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Build Armbian Image
         env:
@@ -19,11 +19,8 @@ jobs:
             BOARD=orangepi4 \
             BRANCH=current \
             RELEASE=bookworm \
-            BUILD_MINIMAL=no \
             BUILD_DESKTOP=no \
-            KERNEL_ONLY=no \
             KERNEL_CONFIGURE=no \
-            COMPRESS_OUTPUTIMAGE=sha,gpg,img \
-            IGNORE_UPDATES=yes \
+            COMPRESS_OUTPUTIMAGE=img \
             SKIP_EXTERNAL_PATCHES=yes \
             EXPERT=yes
